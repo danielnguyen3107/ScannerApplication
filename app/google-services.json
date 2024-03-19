@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "385076221154",
+    "project_id": "barcodescanner-v2",
+    "storage_bucket": "barcodescanner-v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385076221154:android:4f677765c424cb0bad3abb",
+        "android_client_info": {
+          "package_name": "ctu.edu.barcodescanner_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaqljcEtnupnMkRbkH4D0OIAXZ1lMrq74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
