@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+
+
 }
 
 android {
@@ -34,11 +36,41 @@ android {
 
     buildFeatures{
         viewBinding true
+        buildConfig = true
+    }
+
+//    packagingOptions {
+//        exclude 'META-INF/NOTICE.md'
+//        exclude("META-INF/DEPENDENCIES")
+//        exclude("META-INF/LICENSE")
+//        exclude("META-INF/LICENSE.txt")
+//        exclude("META-INF/license.txt")
+//        exclude("META-INF/NOTICE")
+//        exclude("META-INF/NOTICE.txt")
+//        exclude("META-INF/notice.txt")
+//        exclude("META-INF/ASL2.0")
+//        exclude("META-INF/*.kotlin_module")
+//    }
+
+    packagingOptions {
+//        exclude("META-INF/DEPENDENCIES")
+//        exclude("META-INF/LICENSE")
+//        exclude("META-INF/LICENSE.txt")
+//        exclude("META-INF/license.txt")
+//        exclude("META-INF/NOTICE")
+//        exclude("META-INF/NOTICE.txt")
+//        exclude("META-INF/notice.txt")
+//        exclude("META-INF/ASL2.0")
+//        exclude("META-INF/*.kotlin_module")
+        resources.excludes.add("META-INF/*")
     }
 }
 
 dependencies {
-    implementation 'org.apache.commons:commons-csv:1.9.0'
+//    implementation 'com.sendgrid:sendgrid-java:4.5.0'
+
+    implementation 'com.sun.mail:android-mail:1.6.6'
+    implementation 'com.sun.mail:android-activation:1.6.6'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

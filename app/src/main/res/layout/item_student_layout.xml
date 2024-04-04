@@ -14,7 +14,7 @@
         android:orientation="vertical">
         <!-- TextView cho tên sự kiện -->
         <TextView
-            android:id="@+id/eventNameTextView"
+            android:id="@+id/studentManagementTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,15 +34,15 @@
             android:paddingEnd="16dp">
 
             <TextView
-                android:id="@+id/hostTitleTextView"
+                android:id="@+id/nameTitleTextView"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Host: "
+                android:text="Name: "
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/hostTextView"
+                android:id="@+id/nameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
@@ -58,22 +58,22 @@
             android:paddingEnd="16dp">
 
             <TextView
-                android:id="@+id/locationTitleTextView"
+                android:id="@+id/idTitleTextView"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Location: "
+                android:text="Student ID: "
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/locationTextView"
+                android:id="@+id/idTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <!-- TextView cho thông tin số thành viên -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,21 +82,42 @@
             android:paddingEnd="16dp">
 
             <TextView
-                android:id="@+id/membersTitleTextView"
+                android:id="@+id/majorTitleTextView"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Number of members: "
+                android:text="Major: "
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/membersTextView"
+                android:id="@+id/majorTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
+            <TextView
+                android:id="@+id/courseTitleTextView"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Course: "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/courseTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
         <!-- TextView cho thông tin ngày -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,15 +127,15 @@
             android:paddingEnd="16dp">
 
             <TextView
-                android:id="@+id/dayTitleTextView"
+                android:id="@+id/emailTitleTextView"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Day: "
+                android:text="Email: "
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/dayTextView"
+                android:id="@+id/emailTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
@@ -122,52 +143,7 @@
         </LinearLayout>
 
         <!-- TextView cho thông tin thời gian bắt đầu -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
 
-            <TextView
-                android:id="@+id/beginTimeTitleTextView"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Begin Time: "
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/beginTimeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <!-- TextView cho thông tin thời gian kết thúc -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
-
-            <TextView
-                android:id="@+id/endTimeTitleTextView"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="End Time: "
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/endTimeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-        </LinearLayout>
     </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>

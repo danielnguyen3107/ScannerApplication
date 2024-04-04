@@ -20,8 +20,17 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import java.io.IOException
-import ctu.edu.barcodescanner_v2.ViewFinderOverlay
 import ctu.edu.barcodescanner_v2.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+
+import java.util.*
+import javax.mail.*
+import javax.mail.internet.InternetAddress
+import javax.mail.internet.MimeMessage
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -127,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                     if (barcodes.size() > 0) {
                         val barcode = barcodes.valueAt(0)
                         val rawValue = barcode.rawValue
+                        val studentId = barcode.rawValue // Define studentID for email sending
                         Log.d("Barcode", "Value: ${barcode.rawValue}")
 
                         isBarcodeScanned = true // Đặt biến cờ thành true sau khi quét thành công
@@ -150,6 +160,26 @@ class MainActivity : AppCompatActivity() {
 
                         // Gỡ bỏ bộ xử lý của BarcodeDetector để ngăn quét tiếp theo
                         barcodeDetector.setProcessor(null)
+
+                        // Setting EMAIL SENDING
+                        // Gọi hàm để lấy địa chỉ email từ Firestore
+                        getEmailFromFirestore(studentId, eventName) { email ->
+                            Log.d("Firestore", "Email for student ID $studentId: $email") // Log ra giá trị email
+                            if (email != null) {
+                                // Nếu có địa chỉ email, gửi email thông báo
+                                val subject = "Barcode Scanned Successfully"
+                                val body = "Barcode value: $studentId"
+
+
+                                // Đặt cờ đã quét thành công thành true
+                                isBarcodeScanned = true
+                            } else {
+                                // Nếu không tìm thấy địa chỉ email trong Firestore, thông báo lỗi
+                                Log.e("Firestore", "Email not found for student ID: $studentId")
+                                // Hoặc bạn có thể hiển thị một thông báo Toast để thông báo cho người dùng
+                            }
+                        }
+
                     }
                 } else {
                     Log.e("Firebase", "Firestore is not initialized")
@@ -169,4 +199,93 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    // Email sending
+    // Hàm để lấy địa chỉ email từ Firestore dựa trên ID quét từ mã barcode
+    fun getEmailFromFirestore(studentId: String, eventName: String?, callback: (String?) -> Unit) {
+        val db = Firebase.firestore
+        db.collection("student")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val id = document.id // Lấy ra ID của tài liệu
+                    Log.d("FirestoreEmail", "Document ID: $id")
+                    val studentDocumentId = document.getString("id")
+                    Log.d("FirestoreEmail", "Student Document ID: $studentDocumentId")
+                    if (studentId == studentDocumentId) {
+                        // Lấy ra giá trị của trường id trong tài liệu
+                        val studentDocumentId = document.getString("id")
+                        Log.d("FirestoreStudentID", "Student Document ID is DETECTED: $studentDocumentId")
+                        val studentEmail = document.getString("email")
+                        Log.d("FirestoreStudentEmail", "Student Document Email is DETECTED: $studentEmail")
+
+                        // Gọi hàm sendEmail nếu email được tìm thấy
+                        if (studentEmail != null) {
+                            val subject = "Check in Event"
+                            val body = "You have check in $eventName event successfully"
+                            sendEmail(studentEmail, subject, body)
+                        } else {
+                            Log.e("FirestoreStudentEmail", "Email is null for student ID: $studentId")
+                        }
+                        // Kết thúc vòng lặp khi đã tìm thấy email
+                        return@addOnSuccessListener
+                    }
+                }
+                // Trường hợp không tìm thấy tài liệu với studentId tương ứng
+                Log.d("FirestoreEmail", "Document not found for student ID: $studentId")
+                callback(null)
+            }
+            .addOnFailureListener { e ->
+                // Xử lý khi truy vấn không thành công
+                Log.e("Firestore", "Error getting documents", e)
+                callback(null)
+            }
+    }
+
+    private fun sendEmail(recipientEmail: String, subject: String, body: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+//                val senderEmail = "danielnguyenminhtuan3107@gmail.com"
+//                val senderPassword = "DanielNguyen3107_"
+
+                val senderEmail = "tuanb2017091@student.ctu.edu.vn"
+                val senderPassword = "2fm#2FTA"
+
+                val host = "smtp.gmail.com"
+                val port = "587"
+
+                val props = Properties()
+                props["mail.smtp.auth"] = "true"
+                props["mail.smtp.starttls.enable"] = "true"
+                props["mail.smtp.host"] = host
+                props["mail.smtp.port"] = port
+
+                val session = Session.getInstance(props, object : Authenticator() {
+                    override fun getPasswordAuthentication(): PasswordAuthentication {
+                        return PasswordAuthentication(senderEmail, senderPassword)
+                    }
+                })
+
+                val message = MimeMessage(session)
+                message.setFrom(InternetAddress(senderEmail))
+                message.addRecipient(Message.RecipientType.TO, InternetAddress(recipientEmail))
+                message.subject = subject
+
+
+                message.setText(body)
+
+                withContext(Dispatchers.IO) {
+                    Transport.send(message)
+                }
+                Log.d("SendEmail", "Email sent successfully!")
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.e("SendEmail", "Error sending email: ${e.message}")
+            }
+        }
+    }
+
+
+
+
 }

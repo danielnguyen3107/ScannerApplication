@@ -47,7 +47,7 @@ class AddNewEventActivity : AppCompatActivity() {
         // Set up click listener for the submit button
         binding.submitEventButton.setOnClickListener {
 
-//            saveEventDataToExcel()
+
             // Call a function to save event data to Firestore
             saveEventDataToFirestore()
 
@@ -179,60 +179,6 @@ class AddNewEventActivity : AppCompatActivity() {
             }
     }
 
-//    private fun saveEventDataToExcel() {
-//        val eventName = binding.eventNameEditText.text.toString()
-//        val host = binding.hostEditText.text.toString()
-//        val location = binding.locationEditText.text.toString()
-//        val numberOfMembers = binding.numberOfMembersEditText.text.toString().toLong()
-//
-//        val event = Event(eventName, host, location, numberOfMembers, dayPick, beginDate, endDate)
-//
-//        try {
-//            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-//            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-//
-//            // Create a new workbook
-//            val workbook = XSSFWorkbook()
-//            val sheet = workbook.createSheet("Events")
-//
-//            // Create a row for headers
-//            val headerRow = sheet.createRow(0)
-//            val headers = arrayOf("Event Name", "Host", "Location", "Number of Members", "Date", "Begin Time", "End Time")
-//
-//            for ((index, header) in headers.withIndex()) {
-//                val headerCell = headerRow.createCell(index)
-//                headerCell.setCellValue(header)
-//            }
-//
-//            // Create a row for event data
-//            val dataRow = sheet.createRow(1)
-//            val data = arrayOf(
-//                event.eventName,
-//                event.host,
-//                event.location,
-//                event.numberOfMembers.toString(),
-//                dateFormat.format(event.dayPick),
-//                timeFormat.format(event.beginTime),
-//                timeFormat.format(event.endTime)
-//            )
-//
-//            for ((index, value) in data.withIndex()) {
-//                val dataCell = dataRow.createCell(index)
-//                dataCell.setCellValue(value)
-//            }
-//
-//            // Save the workbook to a file
-//            val fileDir = getExternalFilesDir(null)
-//            val file = File(fileDir, "events.xlsx")
-//            val fileOutputStream = FileOutputStream(file)
-//            workbook.write(fileOutputStream)
-//            fileOutputStream.close()
-//
-//            Log.d("Excel", "Excel file created successfully at: ${file.absolutePath}")
-//        } catch (e: Exception) {
-//            Log.e("Excel", "Error saving data to Excel file", e)
-//        }
-//    }
 
 
 

@@ -5,19 +5,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".EventListActivity">
+    tools:context=".EventListActivity"
+    android:background="@color/light_blue">
+    <TabHost
+        android:id="@+id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <!-- for tab 1 -->
+                <LinearLayout
+                    android:id="@+id/currenEventTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFC0CB"
+                    android:orientation="vertical">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvEventList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <!-- for tab 2 -->
+                <LinearLayout
+                    android:id="@+id/oldEventTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#90ee90"
+                    android:orientation="vertical">
+
+                    <!-- Text View for applying the text to the tab -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="270dp"
+                        android:text="This is Tab 2"
+                        android:textColor="#000"
+                        android:textSize="32sp" />
+                </LinearLayout>
+
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
     <!-- Add your views here -->
-    <TextView
-        android:id="@+id/titleList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CURRENT EVENT"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:textColor="@android:color/holo_blue_light"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvEventList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/titleList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="CURRENT EVENT"-->
+<!--        android:gravity="center"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="28dp"-->
+<!--        android:textColor="@color/teal_700"/>-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvEventList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
 </LinearLayout>

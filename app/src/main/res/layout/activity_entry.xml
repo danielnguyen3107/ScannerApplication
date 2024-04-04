@@ -6,13 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".Activity_entry">
 
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="209dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="52dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="200dp"
         android:text="CTU - Scanner app"
-        android:textSize="24sp"
+        android:textSize="40dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,38 +33,87 @@
     <Button
         android:id="@+id/currentEventButton"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Current Event"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp"
+        android:layout_height="70dp"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"/>
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        android:text="Scan Current Event"
+        android:backgroundTint="@color/light_blue"
+        android:textColor="@color/dark_blue"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.723"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
     <Button
-        android:id="@+id/addEventButton"
+        android:id="@+id/manageEventButton"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Add New Event"
-        app:layout_constraintTop_toBottomOf="@id/currentEventButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
+        android:layout_height="70dp"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"/>
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:text="Manage Event"
+        android:backgroundTint="@color/light_blue"
+        android:textColor="@color/dark_blue"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.723"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currentEventButton" />
+
+<!--    <Button-->
+<!--        android:id="@+id/addEventButton"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:text="Add New Event"-->
+<!--        android:backgroundTint="@color/light_blue"-->
+<!--        android:textColor="@color/dark_blue"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.723"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/currentEventButton" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/eventAttendanceListButton"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:text="Event Attendance List"-->
+<!--        android:backgroundTint="@color/light_blue"-->
+<!--        android:textColor="@color/dark_blue"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.723"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/addEventButton" />-->
 
     <Button
-        android:id="@+id/eventAttendanceListButton"
+        android:id="@+id/studentManagementButton"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Event Attendance List"
-        app:layout_constraintTop_toBottomOf="@id/addEventButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
+        android:layout_height="70dp"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"/>
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Student Management"
+        android:backgroundTint="@color/light_blue"
+        android:textColor="@color/dark_blue"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.723"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manageEventButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

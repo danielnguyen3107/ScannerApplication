@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TabHost
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,15 +32,35 @@ class EventListActivity : AppCompatActivity(), OnItemClickListener {
         // Retrieve events first, then set the adapter with the retrieved data
         retrieveEventsFromFirestore()
 
+        // initiating the tabhost
+        val tabhost = findViewById<TabHost>(R.id.tabhost)
+
+        // setting up the tab host
+        tabhost.setup()
+
+        // Code for adding Tab 1 to the tabhost
+        var spec = tabhost.newTabSpec("Tab One")
+        spec.setContent(R.id.currenEventTab)
+
+        // setting the name of the tab 1 as "Tab One"
+        spec.setIndicator("Tab One")
+
+        // adding the tab to tabhost
+        tabhost.addTab(spec)
+
+        // Code for adding Tab 2 to the tabhost
+        spec = tabhost.newTabSpec("Tab Two")
+        spec.setContent(R.id.oldEventTab)
+
+        // setting the name of the tab 1 as "Tab Two"
+        spec.setIndicator("Tab Two")
+        tabhost.addTab(spec)
 
     }
 
 
     override fun onItemClick(event: Event) {
 
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.putExtra("eventName", event.eventName)
-//        startActivity(intent)
 
         val currentTime = Calendar.getInstance().time
 

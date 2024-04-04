@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StudentManagementActivity"
+    android:background="@color/light_blue">
+
+    <!-- Add your views here -->
+    <TextView
+        android:id="@+id/titleList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STUDENT LIST"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="28dp"
+        android:textColor="@color/teal_700"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStudentList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/addNewStudentButton" />
+
+    <Button
+        android:id="@+id/addNewStudentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add new student"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"/>
+
+</RelativeLayout>

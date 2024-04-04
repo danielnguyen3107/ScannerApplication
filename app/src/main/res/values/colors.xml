@@ -12,7 +12,7 @@
     <color name="barcode_reticle_background">#99000000</color>
     <color name="barcode_reticle_stroke">#ffffff</color>
     <color name="dark_blue">#00008b</color>
-    <color name="light_blue">#add8e6</color>
-    #add8e6
+    <color name="light_blue">#ADD4E6</color>
+
 
 </resources>

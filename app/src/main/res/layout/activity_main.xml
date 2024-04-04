@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_blue">
 
         <TextView
             android:id="@+id/barcode_value"
@@ -37,11 +38,13 @@
             android:layout_marginBottom="16dp" />
 
         <Button
-            android:id="@+id/button_scan"
+            android:id="@+id/buttonFinish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scan Code"
+            android:text="Finish"
             android:textSize="18sp"
+            android:backgroundTint="@color/teal_200"
+            android:textColor="@color/white"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp" />
     </LinearLayout>
