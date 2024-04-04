@@ -32,38 +32,13 @@ class EventListActivity : AppCompatActivity(), OnItemClickListener {
         // Retrieve events first, then set the adapter with the retrieved data
         retrieveEventsFromFirestore()
 
-        // initiating the tabhost
-        val tabhost = findViewById<TabHost>(R.id.tabhost)
 
-        // setting up the tab host
-        tabhost.setup()
-
-        // Code for adding Tab 1 to the tabhost
-        var spec = tabhost.newTabSpec("Tab One")
-        spec.setContent(R.id.currenEventTab)
-
-        // setting the name of the tab 1 as "Tab One"
-        spec.setIndicator("Tab One")
-
-        // adding the tab to tabhost
-        tabhost.addTab(spec)
-
-        // Code for adding Tab 2 to the tabhost
-        spec = tabhost.newTabSpec("Tab Two")
-        spec.setContent(R.id.oldEventTab)
-
-        // setting the name of the tab 1 as "Tab Two"
-        spec.setIndicator("Tab Two")
-        tabhost.addTab(spec)
 
     }
 
 
     override fun onItemClick(event: Event) {
-
-
         val currentTime = Calendar.getInstance().time
-
         if (currentTime.after(event.beginTime) && currentTime.before(event.endTime)) {
             // Thời gian hiện tại nằm trong khoảng thời gian của sự kiện
             val intent = Intent(this, MainActivity::class.java)
@@ -86,12 +61,10 @@ class EventListActivity : AppCompatActivity(), OnItemClickListener {
     private fun retrieveEventsFromFirestore() {
         val db = FirebaseFirestore.getInstance()
         val eventsRef = db.collection("events")
-
         eventsRef.get()
             .addOnSuccessListener { querySnapshot ->
                 // Xóa dữ liệu cũ
                 eventList.clear()
-
                 // Lặp qua tất cả các tài liệu và thêm vào danh sách sự kiện
                 for (doc in querySnapshot.documents) {
                     val beginTimeTimestamp = doc.getTimestamp("beginTime")

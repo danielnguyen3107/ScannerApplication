@@ -51,7 +51,6 @@ class Activity_entry : AppCompatActivity() {
 
 
 
-
     }
 
 
