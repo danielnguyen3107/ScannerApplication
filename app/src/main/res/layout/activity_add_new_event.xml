@@ -1,3 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_button_background">
+
+    <!-- View with semi-transparent background -->
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_light"
+        android:alpha="0.1" />
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,9 +29,13 @@
             android:layout_height="45dp"
             android:text="EVENT REGISTRATION FORM"
             android:textAlignment="center"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/bg"
             android:textSize="26dp"
             android:textStyle="bold"
+            android:shadowColor="#80000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="8"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="16dp"></TextView>
 
@@ -75,6 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Timeline"
+            android:textColor="@color/teal_700"
             android:textStyle="bold"
             android:textSize="24sp"
             android:paddingTop="16dp"
@@ -103,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:text="Pick Date"
                 android:backgroundTint="@color/light_blue"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/teal_700"
                 android:textSize="15dp"
                 android:textStyle="bold"/>
 
@@ -136,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:text="Pick Begin Time"
                 android:backgroundTint="@color/light_blue"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/teal_700"
                 android:textSize="15dp"
                 android:textStyle="bold"/>
 
@@ -169,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:text="Pick End Time"
                 android:backgroundTint="@color/light_blue"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/teal_700"
                 android:textSize="15dp"
                 android:textStyle="bold"/>
 
@@ -196,10 +216,12 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/light_blue"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/teal_700"
             android:textSize="20dp"
             android:textStyle="bold"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
+
+</RelativeLayout>

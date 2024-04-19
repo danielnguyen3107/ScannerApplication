@@ -31,12 +31,12 @@ class Activity_entry : AppCompatActivity() {
             val eventAttendanceListButton = dialog.findViewById<Button>(R.id.eventAttendanceListButton)
 
             // Xử lý sự kiện khi nhấn các nút trong dialog
-            addEventButton.setOnClickListener {
+            addEventButton.setOnClickListener { // Khi nhấn vào button này sẽ mở form thêm sự kiện
                 startActivity(Intent(this, AddNewEventActivity::class.java))
                 dialog.dismiss() // Đóng dialog sau khi xử lý xong
             }
 
-            eventAttendanceListButton.setOnClickListener {
+            eventAttendanceListButton.setOnClickListener {// Khi nhấn vào button này sẽ mở danh sách
                 startActivity(Intent(this,  EventAttendanceListActivity::class.java))
                 dialog.dismiss() // Đóng dialog sau khi xử lý xong
             }

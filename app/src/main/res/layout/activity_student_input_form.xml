@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/gradient_button_background">
+
+    <!-- Title Section -->
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="INPUT FORM"
+        android:textStyle="bold"
+        android:textSize="36sp"
+        android:textColor="@color/bg"
+        android:shadowColor="#80000000"
+        android:shadowDx="5"
+        android:shadowDy="2"
+        android:shadowRadius="8"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Student Name -->
     <LinearLayout
@@ -11,19 +28,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/nameIcon"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"/>
+            android:text="Name"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/teal_700"/>
 
         <EditText
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/nameEditTextView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Name"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>
@@ -35,19 +54,21 @@
         android:orientation="horizontal"
         android:layout_marginTop="8dp">
 
-        <ImageView
+        <TextView
             android:id="@+id/idIcon"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"/>
+            android:text="ID"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/teal_700"/>
 
         <EditText
             android:id="@+id/idTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="ID"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>
@@ -59,19 +80,21 @@
         android:orientation="horizontal"
         android:layout_marginTop="8dp">
 
-        <ImageView
-            android:id="@+id/majorIcon"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/majorTextView"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"/>
+            android:text="Major"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/teal_700"/>
 
         <EditText
-            android:id="@+id/majorTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/majorEditTextView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Major"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>
@@ -83,19 +106,21 @@
         android:orientation="horizontal"
         android:layout_marginTop="8dp">
 
-        <ImageView
-            android:id="@+id/courseIcon"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/courseTextView"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"/>
+            android:text="Course"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/teal_700"/>
 
         <EditText
-            android:id="@+id/courseTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/courseEditTextView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Course"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>
@@ -107,28 +132,34 @@
         android:orientation="horizontal"
         android:layout_marginTop="8dp">
 
-        <ImageView
-            android:id="@+id/emailIcon"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"/>
+            android:text="Email"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/teal_700"/>
 
         <EditText
-            android:id="@+id/emailTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/emailEditTextView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Email"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>
+
+    <!-- Submit Button -->
     <Button
         android:id="@+id/submitStudentEventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/light_blue"
         android:text="Submit"
-        android:textColor="@color/teal_700"
-        android:backgroundTint="@color/light_blue"></Button>
+        android:textStyle="bold"
+        android:textColor="@color/teal_700"/>
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -31,6 +32,7 @@ import java.util.*
 import javax.mail.*
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -93,8 +95,19 @@ class MainActivity : AppCompatActivity() {
         binding.viewFinderOverlay.post {
             binding.viewFinderOverlay.setViewFinder()
         }
+
+        binding.buttonNext.setOnClickListener {
+            // Khi người dùng click vào Button, cho phép quét mã vạch lại
+            isBarcodeScanned = false
+            // Đặt lại Processor của barcodeDetector để tiếp tục quét
+            Log.d("Reset", "Check 1")
+        }
     }
 
+
+
+
+    // Camera setting
     private fun setupCamera() {
         barcodeDetector = BarcodeDetector.Builder(this)
             .setBarcodeFormats(Barcode.ALL_FORMATS)
@@ -133,54 +146,60 @@ class MainActivity : AppCompatActivity() {
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 if (::db.isInitialized) { // Kiểm tra xem db đã được khởi tạo hay chưa
                     val barcodes = detections.detectedItems
-                    if (barcodes.size() > 0) {
-                        val barcode = barcodes.valueAt(0)
-                        val rawValue = barcode.rawValue
-                        val studentId = barcode.rawValue // Define studentID for email sending
-                        Log.d("Barcode", "Value: ${barcode.rawValue}")
+                        if (barcodes.size() > 0) {
+                            val barcode = barcodes.valueAt(0)
+                            val rawValue = barcode.rawValue
+                            val studentId = barcode.rawValue // Define studentID for email sending
+                            Log.d("Barcode", "Value: ${barcode.rawValue}")
 
-                        isBarcodeScanned = true // Đặt biến cờ thành true sau khi quét thành công
+                            isBarcodeScanned =
+                                true // Đặt biến cờ thành true sau khi quét thành công
 
-                        val data = hashMapOf(
-                            "eventName" to eventName,
-                            "value" to rawValue,
-                            "timestamp" to FieldValue.serverTimestamp()
-                        )
-                        // Thêm dữ liệu vào một collection có tên là "barcodes"
-                        db.collection("barcodes")
-                            .add(data)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d("Firestore", "DocumentSnapshot added with ID: ${documentReference.id}")
-                                Toast.makeText(this@MainActivity, "Barcode scanned successfully!", Toast.LENGTH_SHORT).show()
-
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e("Firestore", "Error adding document", e)
-                            }
-
-                        // Gỡ bỏ bộ xử lý của BarcodeDetector để ngăn quét tiếp theo
-                        barcodeDetector.setProcessor(null)
-
-                        // Setting EMAIL SENDING
-                        // Gọi hàm để lấy địa chỉ email từ Firestore
-                        getEmailFromFirestore(studentId, eventName) { email ->
-                            Log.d("Firestore", "Email for student ID $studentId: $email") // Log ra giá trị email
-                            if (email != null) {
-                                // Nếu có địa chỉ email, gửi email thông báo
-                                val subject = "Barcode Scanned Successfully"
-                                val body = "Barcode value: $studentId"
+                            // Init data sending to Firestore
+                            val data = hashMapOf(
+                                "eventName" to eventName,
+                                "value" to rawValue,
+                                "timestamp" to FieldValue.serverTimestamp()
+                            )
+                            // Add data to collection named "barcodes"
+                            db.collection("barcodes")
+                                .add(data)
+                                .addOnSuccessListener { documentReference ->
+                                    Log.d(
+                                        "Firestore",
+                                        "DocumentSnapshot added with ID: ${documentReference.id}"
+                                    )
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "Barcode scanned successfully!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("Firestore", "Error adding document", e)
+                                }
 
 
-                                // Đặt cờ đã quét thành công thành true
-                                isBarcodeScanned = true
-                            } else {
-                                // Nếu không tìm thấy địa chỉ email trong Firestore, thông báo lỗi
-                                Log.e("Firestore", "Email not found for student ID: $studentId")
-                                // Hoặc bạn có thể hiển thị một thông báo Toast để thông báo cho người dùng
+                            getEmailFromFirestore(studentId, eventName) { email ->
+                                Log.d(
+                                    "Firestore",
+                                    "Email for student ID $studentId: $email"
+                                ) // Log ra giá trị email
+                                if (email != null) {
+                                    // Nếu có địa chỉ email, gửi email thông báo
+                                    val subject = "Barcode Scanned Successfully"
+                                    val body = "Barcode value: $studentId"
+
+
+                                } else {
+                                    // Nếu không tìm thấy địa chỉ email trong Firestore, thông báo lỗi
+                                    Log.e("Firestore", "Email not found for student ID: $studentId")
+                                    // Hoặc bạn có thể hiển thị một thông báo Toast để thông báo cho người dùng
+                                }
                             }
                         }
 
-                    }
+
                 } else {
                     Log.e("Firebase", "Firestore is not initialized")
                 }
@@ -189,6 +208,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // Check camera permission
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
@@ -201,7 +221,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Email sending
-    // Hàm để lấy địa chỉ email từ Firestore dựa trên ID quét từ mã barcode
+        // 1-  Hàm để lấy địa chỉ email từ Firestore dựa trên ID quét từ mã barcode
     fun getEmailFromFirestore(studentId: String, eventName: String?, callback: (String?) -> Unit) {
         val db = Firebase.firestore
         db.collection("student")
@@ -242,12 +262,10 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+        // 2-  Email sending
     private fun sendEmail(recipientEmail: String, subject: String, body: String) {
         GlobalScope.launch(Dispatchers.IO) {
             try {
-//                val senderEmail = "danielnguyenminhtuan3107@gmail.com"
-//                val senderPassword = "DanielNguyen3107_"
-
                 val senderEmail = "tuanb2017091@student.ctu.edu.vn"
                 val senderPassword = "2fm#2FTA"
 

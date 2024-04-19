@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Date
 
 
 class EventAttendanceListActivity : AppCompatActivity(), OnItemClickListener {
@@ -48,7 +49,7 @@ class EventAttendanceListActivity : AppCompatActivity(), OnItemClickListener {
             .addOnSuccessListener { querySnapshot ->
                 // Xóa dữ liệu cũ
                 eventList.clear()
-
+                val currentTime = Date()
                 // Lặp qua tất cả các tài liệu và thêm vào danh sách sự kiện
                 for (doc in querySnapshot.documents) {
                     val beginTimeTimestamp = doc.getTimestamp("beginTime")
@@ -65,7 +66,8 @@ class EventAttendanceListActivity : AppCompatActivity(), OnItemClickListener {
                     val endTime = endTimeTimestamp?.toDate()
 
                     if (eventName != null && eventHost != null && eventLocation != null &&
-                        eventMembers != null && dayPick != null && beginTime != null && endTime != null) {
+                        eventMembers != null && dayPick != null && beginTime != null && endTime != null
+                        && currentTime.after(endTime)) {
 
                         val event = Event(eventName, eventHost, eventLocation, eventMembers, dayPick, beginTime, endTime)
                         eventList.add(event)

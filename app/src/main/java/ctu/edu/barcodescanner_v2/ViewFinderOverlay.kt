@@ -3,16 +3,21 @@ package ctu.edu.barcodescanner_v2
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 
 class ViewFinderOverlay(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
+    private var isBarcodeInViewFinder = false
     private val boxPaint: Paint = Paint().apply {
         color = ContextCompat.getColor(context, R.color.red)
         style = Paint.Style.STROKE
-        strokeWidth = context.resources.getDimensionPixelOffset(R.dimen.barcode_reticle_stroke_width).toFloat()
+//        strokeWidth = context.resources.getDimensionPixelOffset(R.dimen.barcode_reticle_stroke_width).toFloat()
+        strokeWidth = 5f
     }
+
+    // Draw detect frame
 
     private val boxCornerRadius: Float =
         context.resources.getDimensionPixelOffset(R.dimen.barcode_reticle_corner_radius).toFloat()
@@ -28,7 +33,7 @@ class ViewFinderOverlay(context: Context, attrs: AttributeSet) : View(context, a
 
     private var boxRect: RectF? = null
 
-    fun setViewFinder() {
+    fun setViewFinder( ) {
         val overlayWidth = width.toFloat()
         val overlayHeight = height.toFloat()
         val boxWidth = overlayWidth * 80 / 100
@@ -36,18 +41,10 @@ class ViewFinderOverlay(context: Context, attrs: AttributeSet) : View(context, a
         val cx = overlayWidth / 2
         val cy = overlayHeight / 2
 
-//        this.boxRect = boxRect
         this.boxRect = RectF(cx - boxWidth / 2, cy - boxHeight / 2, cx + boxWidth / 2, cy + boxHeight / 2)
         invalidate()
     }
 
-//    override fun draw(canvas: Canvas) {
-//        super.draw(canvas)
-//        boxRect?.let {
-//            // Draws the box with rounded corners
-//            canvas.drawRoundRect(it, boxCornerRadius, boxCornerRadius, boxPaint)
-//        }
-//    }
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
@@ -62,8 +59,40 @@ class ViewFinderOverlay(context: Context, attrs: AttributeSet) : View(context, a
             canvas.drawRoundRect(it, boxCornerRadius, boxCornerRadius, eraserPaint)
             // Draws the box.
             canvas.drawRoundRect(it, boxCornerRadius, boxCornerRadius, boxPaint)
+
         }
     }
 
+//    fun drawRedRect(left: Int, top: Int, right: Int, bottom: Int) {
+//        this.left = left
+//        this.top = top
+//        this.right = right
+//        this.bottom = bottom
+//        // Gọi phương thức invalidate() để vẽ lại view
+//        Log.d("ViewFinder", "check")
+//        Log.d("ViewFinder", "Left: $left, Top: $top, Right: $right, Bottom: $bottom")
+//
+//
+//        invalidate()
+//    }
+
+    // Hàm để vẽ hình chữ nhật dùng RectF
+//    override fun onDraw(canvas: Canvas) {
+//        super.onDraw(canvas)
+//
+//        // Tạo một đối tượng Paint
+//        val paint = Paint().apply {
+//            color = Color.RED
+//            style = Paint.Style.STROKE
+//            strokeWidth = 5f // Độ dày của đường viền
+//        }
+//
+//        // Tạo một đối tượng RectF từ giá trị left, top, right, bottom đã được cập nhật
+//        val rectF = RectF(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat())
+//        Log.d("ViewFinder", "Left: $left, Top: $top, Right: $right, Bottom: $bottom")
+//
+//        // Vẽ hình chữ nhật trên canvas
+//        canvas.drawRect(rectF, paint)
+//    }
 
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".EventListActivity"
-    android:background="@color/light_blue">
+    android:background="@drawable/gradient_button_background">
 
     <TextView
         android:id="@+id/titleList"
@@ -16,6 +16,10 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="28dp"
+        android:shadowColor="#80000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="8"
         android:textColor="@color/teal_700"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEventList"
