@@ -33,6 +33,8 @@ import javax.mail.*
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
 import kotlin.math.log
+import java.util.Timer
+import java.util.TimerTask
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -48,6 +50,9 @@ class MainActivity : AppCompatActivity() {
 
     //
     private var eventName: String? = null
+
+    private var timer: Timer? = null
+
     companion object {
         const val CAMERA_PERMISSION_REQUEST_CODE = 1001
     }
@@ -65,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         // FIREBASE SET UP
         FirebaseApp.initializeApp(this)
 
+        // SET UP DATABASE FIRESTORE
         // Define db
         db = Firebase.firestore
 
@@ -104,7 +110,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.buttonNext.setOnClickListener {
+            // Khi người dùng click vào Button, cho phép quét mã vạch lại
+            isBarcodeScanned = false
+            Log.d("Check scan condition", isBarcodeScanned.toString())
+            // Đặt lại Processor của barcodeDetector để tiếp tục quét
+            barcodeDetector.setProcessor(createBarcodeProcessor())
+            Log.d("Reset", "Check 1")
+        }
 
+    }
+    override fun onPause() {
+        super.onPause()
+    }
 
 
     // Camera setting
@@ -140,20 +160,23 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
-            override fun release() {}
+    }
 
+    private fun createBarcodeProcessor(): Detector.Processor<Barcode>{
+        return object: Detector.Processor<Barcode>{
+            override fun release(){
+            }
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 if (::db.isInitialized) { // Kiểm tra xem db đã được khởi tạo hay chưa
-                    val barcodes = detections.detectedItems
-                        if (barcodes.size() > 0) {
+                    if(!isBarcodeScanned ){
+                        val barcodes = detections.detectedItems
+                        if (barcodes.size() > 0 ) {
                             val barcode = barcodes.valueAt(0)
                             val rawValue = barcode.rawValue
                             val studentId = barcode.rawValue // Define studentID for email sending
                             Log.d("Barcode", "Value: ${barcode.rawValue}")
 
-                            isBarcodeScanned =
-                                true // Đặt biến cờ thành true sau khi quét thành công
+                            isBarcodeScanned = true // Đặt biến cờ thành true sau khi quét thành công
 
                             // Init data sending to Firestore
                             val data = hashMapOf(
@@ -165,21 +188,20 @@ class MainActivity : AppCompatActivity() {
                             db.collection("barcodes")
                                 .add(data)
                                 .addOnSuccessListener { documentReference ->
-                                    Log.d(
-                                        "Firestore",
-                                        "DocumentSnapshot added with ID: ${documentReference.id}"
+                                    Log.d("Firestore","DocumentSnapshot added with ID: ${documentReference.id}"
                                     )
                                     Toast.makeText(
                                         this@MainActivity,
                                         "Barcode scanned successfully!",
                                         Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e("Firestore", "Error adding document", e)
-                                }
+                                        ).show()
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.e("Firestore", "Error adding document", e)
+                                    }
 
-
+                            // Setting EMAIL SENDING
+                            // Gọi hàm để lấy địa chỉ email từ Firestore
                             getEmailFromFirestore(studentId, eventName) { email ->
                                 Log.d(
                                     "Firestore",
@@ -189,24 +211,20 @@ class MainActivity : AppCompatActivity() {
                                     // Nếu có địa chỉ email, gửi email thông báo
                                     val subject = "Barcode Scanned Successfully"
                                     val body = "Barcode value: $studentId"
-
-
                                 } else {
                                     // Nếu không tìm thấy địa chỉ email trong Firestore, thông báo lỗi
                                     Log.e("Firestore", "Email not found for student ID: $studentId")
-                                    // Hoặc bạn có thể hiển thị một thông báo Toast để thông báo cho người dùng
+                                    }
                                 }
                             }
+                        } else {
+                            Log.e("Firebase", "Firestore is not initialized")
                         }
-
-
-                } else {
-                    Log.e("Firebase", "Firestore is not initialized")
-                }
+                    } // Check condition scan
             }
-        })
-
+        }
     }
+
 
     // Check camera permission
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
