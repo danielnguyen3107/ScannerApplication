@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 
-class StudentManagementActivity : AppCompatActivity(), OnStudentItemClickListener {
+class StudentManagementActivity : AppCompatActivity(){
     private lateinit var adapter: StudentAdapter
     private lateinit var studentList: MutableList<Student>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,10 +35,10 @@ class StudentManagementActivity : AppCompatActivity(), OnStudentItemClickListene
         retrieveEventsFromFirestore()
     }
 
-    override fun onItemClick(student: Student) {
-        val intent = Intent(this, Activity_entry::class.java)
-        startActivity(intent)
-    }
+//    override fun onItemClick(student: Student) {
+//        val intent = Intent(this, Activity_entry::class.java)
+//        startActivity(intent)
+//    }
     private fun retrieveEventsFromFirestore() {
         val db = FirebaseFirestore.getInstance()
         val eventsRef = db.collection("student")
@@ -70,8 +70,8 @@ class StudentManagementActivity : AppCompatActivity(), OnStudentItemClickListene
                 }
 
                 // Cập nhật adapter sau khi đã lấy dữ liệu
-                adapter = StudentAdapter(studentList)
-                adapter.setOnItemClickListener(this)
+                adapter = StudentAdapter(studentList, db)
+//                adapter.setOnItemClickListener(this)
                 val recyclerView = findViewById<RecyclerView>(R.id.rvStudentList)
                 recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
@@ -81,5 +81,7 @@ class StudentManagementActivity : AppCompatActivity(), OnStudentItemClickListene
                 Log.e("EventListActivity", "Error retrieving events", exception)
             }
     }
+
+
 
 }

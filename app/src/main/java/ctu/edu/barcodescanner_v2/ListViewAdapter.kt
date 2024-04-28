@@ -16,7 +16,7 @@ class ListViewAdapter(private val context: AttendanceListActivity,
             itemView = inflater.inflate(R.layout.list_item_student, parent, false)
         }
 
-        // Thiết lập dữ liệu cho mỗi item (ví dụ: id, timeCheck)
+        // Thiết lập dữ liệu cho mỗi item
         val attendanceDetail = getItem(position)
         val idTextView = itemView?.findViewById<TextView>(R.id.text_id)
         val timeCheckTextView = itemView?.findViewById<TextView>(R.id.text_timeCheck)

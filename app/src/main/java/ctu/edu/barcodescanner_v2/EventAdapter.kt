@@ -1,14 +1,18 @@
 package ctu.edu.barcodescanner_v2
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 
-class EventAdapter(private var eventList: List<Event>) : RecyclerView.Adapter<EventAdapter.EventHolder>() {
+class EventAdapter(private var eventList: List<Event>, private val firestore: FirebaseFirestore) : RecyclerView.Adapter<EventAdapter.EventHolder>() {
     private var onItemClickListener: OnItemClickListener? = null
+    private val tag = "EventAdapter"
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val eventNameTextView: TextView = itemView.findViewById(R.id.eventNameTextView)
         val hostTextView: TextView = itemView.findViewById(R.id.hostTextView)
@@ -17,6 +21,17 @@ class EventAdapter(private var eventList: List<Event>) : RecyclerView.Adapter<Ev
         val dayTextView: TextView = itemView.findViewById(R.id.dayTextView)
         val beginTimeTextView: TextView = itemView.findViewById(R.id.beginTimeTextView)
         val endTimeTextView: TextView = itemView.findViewById(R.id.endTimeTextView)
+        val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
+
+        init {
+            deleteButton.setOnClickListener {
+                Log.d("DeleteBtn in Event list", "Click")
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onDeleteClick(position)
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventHolder {
@@ -52,5 +67,37 @@ class EventAdapter(private var eventList: List<Event>) : RecyclerView.Adapter<Ev
     }
     fun setOnItemClickListener(listener: OnItemClickListener) {
         onItemClickListener = listener
+    }
+
+    private fun deleteDocument(eventName: String) {
+        Log.d(tag, "Check function deleteDocument $eventName")
+        firestore.collection("events")
+            .whereEqualTo("eventName", eventName)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    document.reference.delete()
+                        .addOnSuccessListener {
+                            Log.d(tag, "Document đã được xóa thành công! $eventName")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(tag, "Lỗi khi xóa document", e)
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w(tag, "Lỗi khi truy vấn document", e)
+            }
+    }
+
+    fun onDeleteClick(position: Int) {
+        Log.d("OnDeleteClick func", "Document đã được xóa thành công!")
+
+        val eventName = eventList[position].eventName
+        deleteDocument(eventName)
+
+        // Xóa sinh viên khỏi danh sách và cập nhật giao diện
+        eventList = eventList.filterIndexed { index, _ -> index != position }
+        notifyDataSetChanged()
     }
 }

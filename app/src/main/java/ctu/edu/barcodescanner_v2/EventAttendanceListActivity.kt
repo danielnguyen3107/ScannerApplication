@@ -78,7 +78,7 @@ class EventAttendanceListActivity : AppCompatActivity(), OnItemClickListener {
                 }
 
                 // Cập nhật adapter sau khi đã lấy dữ liệu
-                adapter = EventAdapter(eventList)
+                adapter = EventAdapter(eventList, db)
                 adapter.setOnItemClickListener(this)
                 val recyclerView = findViewById<RecyclerView>(R.id.rvEventList)
                 recyclerView.adapter = adapter

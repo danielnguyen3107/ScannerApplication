@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="380dp"
-    android:layout_height="200dp"
+    android:layout_height="220dp"
     android:layout_margin="8dp"
     android:background="@color/light_blue"
     app:cardCornerRadius="10dp"
@@ -168,6 +168,22 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="157dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/deleteBtn"
+                android:onClick="onDeleteButtonClick"
+                android:text="Delete"
+                android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
 

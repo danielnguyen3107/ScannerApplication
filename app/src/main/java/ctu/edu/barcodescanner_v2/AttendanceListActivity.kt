@@ -12,7 +12,7 @@ class AttendanceListActivity : AppCompatActivity() {
     private lateinit var listView: ListView
     private var eventName: String? = null
     private lateinit var attendanceDetailList: MutableList<AttendanceDetail>
-    private lateinit var adapter: ListViewAdapter // Thêm adapter tùy chỉnh
+    private lateinit var adapter: ListViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

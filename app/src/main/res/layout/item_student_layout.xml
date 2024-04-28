@@ -133,7 +133,21 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <!-- TextView cho thông tin thời gian bắt đầu -->
+        <LinearLayout
+            android:layout_width="157dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/deleteBtn"
+                android:onClick="onDeleteButtonClick"
+                android:text="Delete" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
