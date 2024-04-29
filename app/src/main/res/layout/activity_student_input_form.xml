@@ -65,7 +65,7 @@
             android:textColor="@color/teal_700"/>
 
         <EditText
-            android:id="@+id/idTextView"
+            android:id="@+id/idEditTextView"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

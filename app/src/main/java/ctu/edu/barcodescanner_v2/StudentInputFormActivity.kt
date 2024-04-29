@@ -28,11 +28,11 @@ class StudentInputFormActivity : AppCompatActivity() {
 
     private fun saveEventDataToFirestore() {
         // Retrieve event data from EditText fields and create an Event object
-        val studentName = binding.nameTextView.text.toString()
-        val studentID = binding.idTextView.text.toString()
-        val studentMajor = binding.majorTextView.text.toString()
-        val studentCourse = binding.courseTextView.text.toString()
-        val studentEmail = binding.emailTextView.text.toString()
+        val studentName = binding.nameEditTextView.text.toString()
+        val studentID = binding.idEditTextView.text.toString()
+        val studentMajor = binding.majorEditTextView.text.toString()
+        val studentCourse = binding.courseEditTextView.text.toString()
+        val studentEmail = binding.emailEditTextView.text.toString()
         // Log the event details
         Log.d("StudentDetails", "Student Name: $studentName")
         Log.d("StudentDetails", "Student ID: $studentID")

@@ -1,5 +1,6 @@
 package ctu.edu.barcodescanner_v2
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.apphosting.datastore.testing.DatastoreTestTrace.FirestoreV1Action.DeleteDocument
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 
@@ -22,6 +24,7 @@ class EventAdapter(private var eventList: List<Event>, private val firestore: Fi
         val beginTimeTextView: TextView = itemView.findViewById(R.id.beginTimeTextView)
         val endTimeTextView: TextView = itemView.findViewById(R.id.endTimeTextView)
         val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
+        val editButton: Button = itemView.findViewById(R.id.editButton)
 
         init {
             deleteButton.setOnClickListener {
@@ -29,6 +32,12 @@ class EventAdapter(private var eventList: List<Event>, private val firestore: Fi
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onDeleteClick(position)
+                }
+            }
+            editButton.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onEditClick(itemView, position)
                 }
             }
         }
@@ -69,8 +78,9 @@ class EventAdapter(private var eventList: List<Event>, private val firestore: Fi
         onItemClickListener = listener
     }
 
-    private fun deleteDocument(eventName: String) {
+    private fun deleteDocumentEvent(eventName: String) {
         Log.d(tag, "Check function deleteDocument $eventName")
+        DeleteDocumentBarcode(eventName)
         firestore.collection("events")
             .whereEqualTo("eventName", eventName)
             .get()
@@ -90,14 +100,57 @@ class EventAdapter(private var eventList: List<Event>, private val firestore: Fi
             }
     }
 
+    fun DeleteDocumentBarcode(eventName: String) {
+        Log.d("DeleteDocumentBarcode", "Check function deleteDocument $eventName")
+
+        firestore.collection("barcodes")
+            .whereEqualTo("eventName", eventName)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    document.reference.delete()
+                        .addOnSuccessListener {
+                            Log.d(tag, "Document barcode đã được xóa thành công! $eventName")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(tag, "Lỗi khi xóa document", e)
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w(tag, "Lỗi khi truy vấn document", e)
+            }
+    }
     fun onDeleteClick(position: Int) {
         Log.d("OnDeleteClick func", "Document đã được xóa thành công!")
 
         val eventName = eventList[position].eventName
-        deleteDocument(eventName)
+        deleteDocumentEvent(eventName)
 
         // Xóa sinh viên khỏi danh sách và cập nhật giao diện
         eventList = eventList.filterIndexed { index, _ -> index != position }
         notifyDataSetChanged()
     }
+
+    fun onEditClick(itemView: View, position: Int) {
+        val context = itemView.context
+        val event = eventList[position]
+
+        // Chuyển đến Activity chỉnh sửa với dữ liệu của sự kiện
+        val intent = Intent(context, EditEventFormActivity::class.java)
+        intent.apply {
+            putExtra("eventName", event.eventName)
+            putExtra("host", event.host)
+            putExtra("location", event.location)
+            putExtra("numberOfMembers", event.numberOfMembers)
+            putExtra("dayPick", event.dayPick.time)
+            putExtra("beginTime", event.beginTime.time)
+            putExtra("endTime", event.endTime.time)
+            // Thêm các dữ liệu khác nếu cần
+        }
+
+        // Thêm các dữ liệu khác nếu cần
+        context.startActivity(intent)
+    }
+
 }

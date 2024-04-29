@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="380dp"
-    android:layout_height="220dp"
+    android:layout_height="230dp"
     android:layout_margin="8dp"
     android:background="@color/light_blue"
     app:cardCornerRadius="10dp"
@@ -10,9 +10,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/gradient_item_background">
+        android:layout_height="220dp"
+        android:background="@drawable/gradient_item_background"
+        android:orientation="vertical">
         <!-- TextView cho tên sự kiện -->
         <TextView
             android:id="@+id/eventNameTextView"
@@ -171,19 +171,32 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="157dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/deleteButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:backgroundTint="@color/deleteBtn"
                 android:onClick="onDeleteButtonClick"
                 android:text="Delete"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/editButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:backgroundTint="@color/teal_200"
+                android:onClick="onEditButtonClick"
+                android:text="Edit"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
