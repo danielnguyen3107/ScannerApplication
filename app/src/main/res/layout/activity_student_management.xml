@@ -30,14 +30,26 @@
         android:layout_below="@id/titleList"
         android:layout_above="@id/addNewStudentButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/addNewStudentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add new student"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_button"
+        android:contentDescription="Thêm sinh viên mới"
+        />
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/AddButton"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:onClick="onImageButtonClicked" />-->
+
 
 </RelativeLayout>

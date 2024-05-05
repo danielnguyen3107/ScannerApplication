@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,7 +17,7 @@ class StudentManagementActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_management)
 
-        val studentManageButton = findViewById<Button>(R.id.addNewStudentButton)
+        val studentManageButton: ImageButton = findViewById(R.id.addNewStudentButton)
 
         studentManageButton.setOnClickListener{
             startActivity(Intent(this, StudentInputFormActivity::class.java))
