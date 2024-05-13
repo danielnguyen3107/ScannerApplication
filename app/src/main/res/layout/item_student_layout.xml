@@ -134,7 +134,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="157dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_gravity="center">
 
@@ -145,7 +145,8 @@
                 android:layout_gravity="center"
                 android:backgroundTint="@color/deleteBtn"
                 android:onClick="onDeleteButtonClick"
-                android:text="Delete" />
+                android:text="Delete"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

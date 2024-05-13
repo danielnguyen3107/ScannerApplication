@@ -20,7 +20,7 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="8"
-        android:textColor="@color/teal_700"/>
+        android:textColor="@color/dark_blue"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEventList"
         android:layout_width="match_parent"

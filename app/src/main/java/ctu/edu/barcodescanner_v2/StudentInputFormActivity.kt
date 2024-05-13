@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import ctu.edu.barcodescanner_v2.databinding.ActivityAddNewEventBinding
 import ctu.edu.barcodescanner_v2.databinding.ActivityStudentInputFormBinding
@@ -18,11 +19,16 @@ class StudentInputFormActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.submitStudentEventButton.setOnClickListener {
-            // Call a function to save event data to Firestore
-            saveEventDataToFirestore()
-
-            val intent = Intent(this, Activity_entry::class.java)
-            startActivity(intent)
+            // Kiểm tra validateForm()
+            if (validateForm()) {
+                // Nếu form hợp lệ, tiến hành lưu dữ liệu và chuyển hướng Intent
+                saveEventDataToFirestore()
+                val intent = Intent(this, Activity_entry::class.java)
+                startActivity(intent)
+            } else {
+                // Nếu form không hợp lệ, hiển thị thông báo lỗi
+                Toast.makeText(this, "Bạn đã nhập thiếu, vui lòng kiểm tra !", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -57,5 +63,17 @@ class StudentInputFormActivity : AppCompatActivity() {
                 Log.w("Firestore", "Error adding event", e)
                 // Show an error message
             }
+    }
+
+    // Validate form
+    private fun validateForm(): Boolean {
+        val studentName = binding.nameEditTextView.text.toString()
+        val studentID = binding.idEditTextView.text.toString()
+        val studentMajor = binding.majorEditTextView.text.toString()
+        val studentCourse = binding.courseEditTextView.text.toString()
+        val studentEmail = binding.emailEditTextView.text.toString()
+
+        // Kiểm tra xem tất cả các trường có được điền đầy đủ không
+        return studentName.isNotEmpty() && studentID.isNotEmpty() && studentMajor.isNotEmpty() && studentCourse.isNotEmpty() && studentEmail.isNotEmpty()
     }
 }

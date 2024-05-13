@@ -178,24 +178,26 @@
 
             <Button
                 android:id="@+id/deleteButton"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:backgroundTint="@color/deleteBtn"
                 android:onClick="onDeleteButtonClick"
                 android:text="Delete"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/editButton"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:backgroundTint="@color/teal_200"
                 android:onClick="onEditButtonClick"
                 android:text="Edit"
+                android:textSize="18dp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
